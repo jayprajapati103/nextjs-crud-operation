@@ -14,6 +14,7 @@ function page() {
             <Form.Control type="email" placeholder="Enter email" />
             <Form.Text className="text-muted">
               We will never share your email with anyone else.
+              Yes!
             </Form.Text>
           </Form.Group>
 
