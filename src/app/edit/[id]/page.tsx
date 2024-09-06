@@ -17,7 +17,7 @@ const EditData = ({ params }: any) => {
   const [userData, setUserData] = useState<Userdata | null>();
   useEffect(() => {
     axios
-      .get("/api/apidata")
+      .get("/api/user-crud")
       .then((res) => {
         const data = res.data;
         const currentData = data?.find((data: any) => data?.id === id);
@@ -32,7 +32,7 @@ const EditData = ({ params }: any) => {
     console.log("Clicked", userData);
 
     await axios
-      .put(`/api/apidata`, userData)
+      .put(`/api/user-crud`, userData)
       .then((res) => {
         console.log("Res from post", res);
         router.push("/users");

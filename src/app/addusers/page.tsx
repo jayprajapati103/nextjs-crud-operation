@@ -26,7 +26,7 @@ export default function Home() {
   const handletoClick = () => {
     console.log("Clicked", userData);
     axios
-      .post("api/apidata", userData)
+      .post("api/user-crud", userData)
       .then((res) => {
         console.log("Resp from Post", res);
         router.push("/users");
@@ -47,6 +47,7 @@ export default function Home() {
         />
         <br />
         <br />
+        
         Enter Last Name:{" "}
         <input
           type="text"

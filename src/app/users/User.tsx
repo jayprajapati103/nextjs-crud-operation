@@ -15,7 +15,7 @@ const Users = () => {
 
   useEffect(() => {
     axios
-      .get("api/apidata")
+      .get("api/user-crud")
       .then((resp) => {
         console.log("Response", resp.data);
         setuserData(resp.data);
@@ -33,7 +33,7 @@ const Users = () => {
     console.log("Id Is", typeof currentId);
 
     axios
-      .delete(`api/apidata`, { data: { currentId } })
+      .delete(`api/user-crud`, { data: { currentId } })
       .then((res) => {
         console.log("Resp from Delete", res);
         const filteredData = userData?.filter(
@@ -55,6 +55,7 @@ const Users = () => {
       </button>
       <br />
       <br />
+      
       <table border={1} style={{ margin: "auto" }}>
         <thead>
           <tr>
