@@ -2,6 +2,7 @@ import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import type { NextAuthOptions } from "next-auth";
 
+
 const authOptions: NextAuthOptions = {
   providers: [
     CredentialsProvider({
@@ -29,7 +30,8 @@ const authOptions: NextAuthOptions = {
     strategy: "jwt",
   },
   callbacks: {
-    async jwt({ token, user }) { //Ahi user ni id,email,name token  ma assign thase,atle te token user ne identify kari shake.
+    async jwt({ token, user }) {
+      //Ahi user ni id,email,name token  ma assign thase,atle te token user ne identify kari shake.
       if (user) {
         token.id = user.id;
         token.email = user.email;
@@ -37,7 +39,8 @@ const authOptions: NextAuthOptions = {
       }
       return token;
     },
-    async session({ session, token }) { //Ahi token na data session ma pass thase.
+    async session({ session, token }) {
+      //Ahi token na data session ma pass thase.
       session.user = token;
       return session;
     },

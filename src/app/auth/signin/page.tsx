@@ -32,7 +32,7 @@ const Signin = () => {
       console.error("Login failed:", res.error);
     } else {
       console.log("Login successful");
-      router.push("/");
+      router.push("/users");
     }
   };
   return (

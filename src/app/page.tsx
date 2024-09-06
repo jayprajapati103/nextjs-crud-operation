@@ -1,10 +1,11 @@
 "use client";
 import { useSession, signIn, signOut } from "next-auth/react";
+import { useRouter } from "next/navigation";
 
 export default function Home() {
   // extracting data from usesession as session
   const { data: session } = useSession();
-
+ const router=useRouter();
   // checking if sessions exists
   if (session) {
     <p>Login Successfully!!</p>;
@@ -17,5 +18,7 @@ export default function Home() {
     );
   }
 
-  return <p>Not Login</p>;
+  else{
+    router.push('/auth/signin')
+  }
 }
