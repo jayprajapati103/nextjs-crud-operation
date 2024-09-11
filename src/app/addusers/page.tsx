@@ -3,6 +3,7 @@ import axios from "axios";
 import styles from "../page.module.css";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+
 interface Userdata {
   fname: string;
   lname: string;
@@ -10,6 +11,8 @@ interface Userdata {
   mobileNo: string;
   password: string;
 }
+
+
 export default function Home() {
   const [userData, setuserData] = useState<Userdata>({
     fname: "",

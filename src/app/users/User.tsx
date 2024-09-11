@@ -2,6 +2,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import { signOut } from "next-auth/react";
 interface UserData {
   id: number;
   fname: string;
@@ -13,6 +14,7 @@ const Users = () => {
   const [userData, setuserData]: any = useState<UserData | null>(null);
   const router = useRouter();
 
+  
   useEffect(() => {
     axios
       .get("api/user-crud")
@@ -48,14 +50,20 @@ const Users = () => {
   return (
     <div>
       <button
+        onClick={() => signOut({ callbackUrl: "/auth/signin" })}
+        style={{ marginLeft: "500px" }}
+      >
+        Signout
+      </button>
+      <button
         onClick={() => router.push("/addusers")}
-        style={{ marginLeft: "600px" }}
+        style={{ marginLeft: "200px" }}
       >
         Add User
       </button>
       <br />
       <br />
-      
+
       <table border={1} style={{ margin: "auto" }}>
         <thead>
           <tr>

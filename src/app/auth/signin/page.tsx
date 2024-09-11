@@ -3,11 +3,14 @@ import Button from "react-bootstrap/Button";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Form from "react-bootstrap/Form";
 import { FormEventHandler, useState } from "react";
-import { getProviders, signIn } from "next-auth/react";
+import { getProviders, signIn, useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 
 const Signin = () => {
   // const providers = await getProviders();
+
   const [userInfo, setuserInfo] = useState({
     email: "",
     password: "",
@@ -19,6 +22,8 @@ const Signin = () => {
   };
 
   const router = useRouter();
+  // console.log("Session", myses);
+
   const handleSubmit = async (e: any) => {
     e.preventDefault();
     const res = await signIn("credentials", {
@@ -29,12 +34,26 @@ const Signin = () => {
 
     if (res?.error) {
       setError(res.error);
+
       console.error("Login failed:", res.error);
     } else {
-      console.log("Login successful");
-      router.push("/users");
+      alert("Login successful");
+      // router.push("/users");
     }
   };
+  // const [visibilityOfPwd, setvisibilityOfPwd] = useState(false);
+  // const handlePasswordVisibility = () => {
+  //   setvisibilityOfPwd(!visibilityOfPwd);
+  // };
+
+  //Authenticate to user
+  const { data, status } = useSession();
+  if (status === "loading") {
+    return <h1>Loading</h1>;
+  }
+  if (status === "authenticated") {
+    router.push("/");
+  }
   return (
     <div>
       <h1 className="text-center">Sign in</h1>
@@ -60,12 +79,25 @@ const Signin = () => {
           <Form.Group className="mb-3" controlId="formBasicPassword">
             <Form.Label>Password</Form.Label>
             <Form.Control
+              // type={visibilityOfPwd ? "text" : "password"}
               type="password"
               name="password"
               placeholder="Password"
               onChange={(e) => handletoChange(e)}
               value={userInfo?.password}
+              className="pr-5"
             />
+            {/* <FontAwesomeIcon
+              icon={visibilityOfPwd ? faEye : faEyeSlash}
+              className="position-absolute"
+              style={{
+                top: "34%",
+                right: "39%",
+                cursor: "pointer",
+                transform: "translateY(-50%)",
+              }}
+              onClick={handlePasswordVisibility}
+            /> */}
           </Form.Group>
           {error && <div style={{ color: "red" }}>{error}</div>}
           <Button variant="primary" type="submit" className="w-100">

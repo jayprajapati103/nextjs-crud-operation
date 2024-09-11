@@ -1,5 +1,8 @@
 import { NextResponse } from "next/server";
 import axios from "axios";
+import { getServerSession } from "next-auth";
+
+
 export async function PUT(req: Request) {
   try {
     const { id, ...userdata } = await req.json(); //Aa js obj. ma convert karse,nahi ke "JSON" ma.
@@ -40,7 +43,9 @@ export async function GET(request: Request) {
   }
 }
 
+
 export async function POST(req: Request) {
+  
   try {
     const userdata = await req.json();
     const response = await axios.post(

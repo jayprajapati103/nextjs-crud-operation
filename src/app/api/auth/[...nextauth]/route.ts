@@ -2,7 +2,6 @@ import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import type { NextAuthOptions } from "next-auth";
 
-
 const authOptions: NextAuthOptions = {
   providers: [
     CredentialsProvider({
@@ -12,14 +11,29 @@ const authOptions: NextAuthOptions = {
         password: { label: "Password", type: "password" },
       },
       async authorize(credentials) {
-        if (
-          credentials?.email === "rakesh@gmail.com" &&
-          credentials?.password === "1234"
-        ) {
-          console.log("My data", credentials);
-          return { id: "1", name: "Rakesh", email: "rakesh@gmail.com" }; //aa n/w section ma session ma "preview ma hase"
+        let userdata: any = await fetch(
+          "https://66cec214901aab24841f6d28.mockapi.io/userdata/usersdetails"
+        )
+          .then((res) => res.json())
+          .then((data) => data)
+          .catch((err) => console.log("Err from authentication process", err));
+
+        console.log("My data", userdata);
+
+        let authorizeUser = userdata?.find(
+          (data: any) =>
+            data?.email === credentials?.email &&
+            data?.password === credentials?.password
+        );
+        if (authorizeUser) {
+          return {
+            id: authorizeUser?.id,
+            email: authorizeUser?.email,
+            password: authorizeUser?.password,
+          }; //aa n/w section ma session ma "preview ma hase"
+        } else {
+          throw new Error("Email Id or Password is wrong!!");
         }
-        throw new Error("Email Id or Password is wrong!!");
       },
     }),
   ],
