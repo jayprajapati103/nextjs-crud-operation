@@ -10,8 +10,8 @@ interface Userdata {
   email: string;
   mobileNo: string;
   password: string;
+  
 }
-
 
 export default function Home() {
   const [userData, setuserData] = useState<Userdata>({
@@ -50,7 +50,6 @@ export default function Home() {
         />
         <br />
         <br />
-        
         Enter Last Name:{" "}
         <input
           type="text"
@@ -78,7 +77,7 @@ export default function Home() {
         />
         <br />
         <br />
-        Enter your Password:{" "}
+        Enter a Password:{" "}
         <input
           type="password"
           name="password"
